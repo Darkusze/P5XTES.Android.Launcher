@@ -91,11 +91,11 @@ The native code is built with CMake, so the Android SDK, NDK and CMake must be i
 
 ## License
 
-Fusion Core is licensed under the **GNU General Public License v3.0** (see [LICENSE](LICENSE)).
-This fork keeps that license and the original copyright notices. If you distribute modified versions,
-they must remain under the same license and make their source available.
+FusionCore (and P5XTESAL) is licensed under the **GNU General Public License v3.0** (see [LICENSE](LICENSE)).
+This fork keeps that license and all original copyright notices. If you distribute modified versions or APKs,
+they must remain under the same license and make their source code available.
 
 ## Disclaimer
 
-This is an unofficial tool. Modifying an online game can go against its terms of service and may result in
-sanctions on your account. Use it at your own risk and only with games and accounts you are willing to risk.
+This is an unofficial fan-made tool for Persona 5: The Phantom X. Modifying or running an online game inside a 
+custom runtime container may go against its terms of service and could result in account sanctions. Use it at your own risk.
