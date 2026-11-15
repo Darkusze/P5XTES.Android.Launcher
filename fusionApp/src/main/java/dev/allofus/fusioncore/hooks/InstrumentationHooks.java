@@ -54,7 +54,10 @@ public class InstrumentationHooks {
 
     static Intent resolveOriginalIntent(Intent currentIntent) {
         try {
-            currentIntent.setExtrasClassLoader(InstrumentationHooks.class.getClassLoader());
+            // The game loader delegates dev.allofus.fusioncore.* to the host loader, so it can resolve both.
+            ClassLoader loader = GameRuntime.getGameClassLoader();
+            if (loader == null) loader = InstrumentationHooks.class.getClassLoader();
+            currentIntent.setExtrasClassLoader(loader);
 
             Intent originalIntent = currentIntent.getParcelableExtra(EXTRA_ORIGINAL_INTENT);
 

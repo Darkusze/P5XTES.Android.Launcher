@@ -123,6 +123,12 @@ int il2cpp_init_hook(char *domain_name)
         dotNetConfig.IsMono = runtime_config.isIl2Cpp2Mono;
         // set TMPDIR for MonoMod lib drops
         setenv("TMPDIR", runtime_config.codeCacheDirectory.c_str(), 1);
+        // MonoMod's AndroidSystem (initialised by the first Harmony patch) creates a ".cache" directory under
+        // HOME / XDG_CACHE_HOME. On Android HOME is "/data", which is not writable, so every Harmony patch failed
+        // with "UnauthorizedAccessException: Access to the path '/data/.cache' is denied" (e.g. XUnity.AutoTranslator
+        // could not hook any text component). Point both at a directory the app can write to.
+        setenv("HOME", runtime_config.codeCacheDirectory.c_str(), 1);
+        setenv("XDG_CACHE_HOME", runtime_config.codeCacheDirectory.c_str(), 1);
 
         // create AuxFolderPluginList
         auto aux = runtime_config.auxiliaryPluginFolders;

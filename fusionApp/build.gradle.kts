@@ -11,6 +11,8 @@ dependencies {
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.3.0")
     implementation("com.google.android.material:material:1.14.0")
     implementation("com.google.protobuf:protobuf-javalite:4.36.1")
+    // Reads zips that use Deflate64 (compression method 9), which java.util.zip cannot open
+    implementation("org.apache.commons:commons-compress:1.27.1")
 }
 
 android {

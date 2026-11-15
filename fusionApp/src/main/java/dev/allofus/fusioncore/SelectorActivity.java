@@ -42,6 +42,7 @@ import java.util.zip.ZipFile;
 
 import dev.allofus.fusioncore.tools.CrashDetector;
 import dev.allofus.fusioncore.tools.GlobalMetadata;
+import dev.allofus.fusioncore.tools.P5xGame;
 import dev.allofus.fusioncore.tools.Utilities;
 
 public class SelectorActivity extends AppCompatActivity {
@@ -51,6 +52,7 @@ public class SelectorActivity extends AppCompatActivity {
 
     private String pendingLaunchPackage;
     private String pendingMetadataPackage;
+    private String primaryTargetPackage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,14 @@ public class SelectorActivity extends AppCompatActivity {
         listView.setEmptyView(emptyView);
 
         List<AppEntry> installedTargets = resolveInstalledTargets();
+        primaryTargetPackage = installedTargets.isEmpty() ? null : installedTargets.get(0).packageName();
+        findViewById(R.id.selector_action_translations).setOnClickListener(v -> {
+            Intent intent = new Intent(this, TranslationsActivity.class);
+            if (primaryTargetPackage != null) {
+                intent.putExtra(TranslationsActivity.EXTRA_PACKAGE_NAME, primaryTargetPackage);
+            }
+            startActivity(intent);
+        });
         Drawable defaultIcon = getPackageManager().getDefaultActivityIcon();
         ArrayAdapter<AppEntry> adapter = new ArrayAdapter<>(
                 this,
@@ -199,6 +209,10 @@ public class SelectorActivity extends AppCompatActivity {
                 continue;
             }
             if (packageName.equals(getPackageName())) {
+                continue;
+            }
+            // P5XTES only supports Persona 5: The Phantom X.
+            if (!P5xGame.isSupported(packageName)) {
                 continue;
             }
 

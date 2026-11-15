@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="selector_subtitle">Persona 5: The Phantom X se detecta automáticamente.</string>
+    <string name="selector_empty_not_installed">Persona 5: The Phantom X no está instalado.</string>
+    <string name="selector_storage_permission_prompt">Concede \"Acceso a todos los archivos\" para que P5XTES pueda escribir los archivos de BepInEx en Documentos.</string>
+    <string name="selector_storage_permission_required">Se necesita el acceso a todos los archivos para continuar.</string>
+    <string name="selector_action_translations">Traducciones</string>
+    <string name="translations_title">Traducciones</string>
+    <string name="translations_target_format">Juego: %1$s</string>
+    <string name="translations_destination_format">Ubicación de instalación: %1$s</string>
+    <string name="translations_section_text">Traducción de texto</string>
+    <string name="translations_section_texture">Traducción de texturas</string>
+    <string name="translations_checking">Buscando la última versión…</string>
+    <string name="translations_latest_format">Última: %1$s (%2$s)</string>
+    <string name="translations_not_installed">Instalada: ninguna</string>
+    <string name="translations_installed_format">Instalada: %1$s</string>
+    <string name="translations_not_found">No se encontró en las releases del repositorio.</string>
+    <string name="translations_action_download">Descargar e instalar</string>
+    <string name="translations_action_reinstall">Reinstalar</string>
+    <string name="translations_action_retry">Reintentar</string>
+    <string name="translations_starting_download">Iniciando la descarga…</string>
+    <string name="translations_downloading_format">Descargando… %1$d%% (%2$s / %3$s)</string>
+    <string name="translations_downloading_unknown_size_format">Descargando… %1$s</string>
+    <string name="translations_extracting">Instalando archivos…</string>
+    <string name="translations_done_format">Se instalaron %1$d archivos en BepInEx. Carpetas: %2$s. Reinicia el juego para aplicarlos.</string>
+    <string name="translations_error_format">Error: %1$s</string>
+    <string name="translations_storage_required">Se necesita el acceso a todos los archivos para instalar las traducciones.</string>
+    <string name="translations_section_bundle">Paquete base (plugins de BepInEx + XUnity.AutoTranslator)</string>
+</resources>
