@@ -38,8 +38,8 @@ You only need to follow the configuration steps below to make things work.
 ## Usage & Setup
 
 1. Install **Persona 5: The Phantom X** on your Android device.
-2. Download and install the **P5XTESAL** APK (or build it from source using the instructions below).
-3. Launch **P5XTESAL**, select *Persona 5: The Phantom X* from the detected apps list, and let it initialize the BepInEx environment.
+2. Download and install the **P5XTES** APK (or build it from source using the instructions below).
+3. Launch **P5XTES**, select *Persona 5: The Phantom X* from the detected apps list, and let it initialize the BepInEx environment.
 4. Place your compatible P5X BepInEx plugins (such as `XUnity.AutoTranslator` and the P5XTES translation files) into the generated BepInEx plugins directory and launch the game through the app.
 
 ## Changes in this fork
