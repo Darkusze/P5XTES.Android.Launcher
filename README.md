@@ -31,18 +31,16 @@ you will need to make it compatible with the newer MonoMod version.
 
 There is no Lemon/Melonloader support yet, just BepInEx Fusion (the original project's custom fork of BepInEx).
 
-FusionCore automatically detects Unity version, then downloads the unstripped libunity.so file.
+P5XTESAL automatically detects P5X's Unity version and downloads the corresponding unstripped `libunity.so` file upon setup.
+
 You only need to follow the configuration steps below to make things work.
 
-## Configuration
+## Usage & Setup
 
-FusionCore scans installed apps for IL2CPP Unity games and can launch them without manifest requirements.
-No game list or manifest changes are needed.
-
-Just download the APK (or build the app, if not available), and run!
-
-If you are using il2cpp2mono in your game, you CANNOT just use all of the original PC dlls.
-Unity's managed dlls are platform specific. This also goes for libraries like FMOD too.
+1. Install **Persona 5: The Phantom X** on your Android device.
+2. Download and install the **P5XTES** APK (or build it from source using the instructions below).
+3. Launch **P5XTES**, select *Persona 5: The Phantom X* from the detected apps list, and let it initialize the BepInEx environment.
+4. Place your compatible P5X BepInEx plugins (such as `XUnity.AutoTranslator` and the P5XTES translation files) into the generated BepInEx plugins directory and launch the game through the app.
 
 ## Changes in this fork
 
@@ -75,17 +73,6 @@ isolated, so they can be reviewed or sent upstream separately.
   is `dev.allofus.fusioncore`, not the game.
 - The changes above have only been tested on a single device and game. Other games may need other fixes.
 
-## Can you add support for "X" game?
-
-Make a new issue with the following information:
-- Game name and version
-- Android package name (e.g. `com.example.game`)
-- Unity version (if known)
-- Any other relevant information (e.g. if the game uses a custom UnityPlayerActivity, or if it has anti-cheat)
-- The `java_crash_*.txt` from `/sdcard/FusionCore`, if the game crashes
-
-There are no guarantees. Pull requests are welcome.
-
 ## Build
 
 Use the Gradle wrapper from the repository root:
@@ -104,11 +91,11 @@ The native code is built with CMake, so the Android SDK, NDK and CMake must be i
 
 ## License
 
-Fusion Core is licensed under the **GNU General Public License v3.0** (see [LICENSE](LICENSE)).
-This fork keeps that license and the original copyright notices. If you distribute modified versions,
-they must remain under the same license and make their source available.
+FusionCore (and P5XTESAL) is licensed under the **GNU General Public License v3.0** (see [LICENSE](LICENSE)).
+This fork keeps that license and all original copyright notices. If you distribute modified versions or APKs,
+they must remain under the same license and make their source code available.
 
 ## Disclaimer
 
-This is an unofficial tool. Modifying an online game can go against its terms of service and may result in
-sanctions on your account. Use it at your own risk and only with games and accounts you are willing to risk.
+This is an unofficial fan-made tool for Persona 5: The Phantom X. Modifying or running an online game inside a 
+custom runtime container may go against its terms of service and could result in account sanctions. Use it at your own risk.
