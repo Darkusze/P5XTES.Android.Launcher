@@ -42,6 +42,7 @@ public class GameSettingsActivity extends AppCompatActivity {
     private TextView tvVersionInfo;
 
     private AutoCompleteTextView actvOverrideActivity;
+    private AutoCompleteTextView actvOrientation;
     private SwitchCompat switchLibUnity;
     private SwitchCompat switchIl2Cpp2Mono;
     private String targetPackageName;
@@ -66,6 +67,7 @@ public class GameSettingsActivity extends AppCompatActivity {
         switchLibUnity.setChecked(FusionSettings.getUseUnstrippedLibUnityForGame(this, targetPackageName));
         switchIl2Cpp2Mono.setChecked(FusionSettings.getUseIl2Cpp2Mono(this, targetPackageName));
         actvOverrideActivity.setText(FusionSettings.getActivityOverrideForGame(this, targetPackageName), false);
+        setupOrientationDropdown();
         setupListeners();
     }
 
@@ -76,6 +78,7 @@ public class GameSettingsActivity extends AppCompatActivity {
         tvVersionInfo = findViewById(R.id.tvVersionInfo);
 
         actvOverrideActivity = findViewById(R.id.activity_override_actv);
+        actvOrientation = findViewById(R.id.orientation_actv);
         switchLibUnity = findViewById(R.id.switchLibUnity);
         switchIl2Cpp2Mono = findViewById(R.id.switchIl2Cpp2Mono);
     }
@@ -129,6 +132,21 @@ public class GameSettingsActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.settings_package_not_found, packageName), Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    /** Positions match the FusionSettings.ORIENTATION_* constants. */
+    private void setupOrientationDropdown() {
+        String[] labels = {
+                getString(R.string.settings_orientation_auto),
+                getString(R.string.settings_orientation_game),
+                getString(R.string.settings_orientation_landscape),
+                getString(R.string.settings_orientation_reverse),
+        };
+        actvOrientation.setAdapter(new ArrayAdapter<>(this, R.layout.item_dropdown, labels));
+        int mode = FusionSettings.getOrientationMode(this, targetPackageName);
+        actvOrientation.setText(labels[Math.max(0, Math.min(mode, labels.length - 1))], false);
+        actvOrientation.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
+                FusionSettings.setOrientationMode(this, targetPackageName, position));
     }
 
     private void setupListeners() {

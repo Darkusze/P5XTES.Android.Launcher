@@ -69,4 +69,10 @@
     <string name="translations_error_format">Failed: %1$s</string>
     <string name="translations_storage_required">All files access is required to install translations.</string>
     <string name="translations_section_bundle">Base package (BepInEx plugins + XUnity.AutoTranslator)</string>
+    <string name="settings_orientation_title">Screen orientation</string>
+    <string name="settings_orientation_desc">How the game rotates. Applies the next time you start the game.</string>
+    <string name="settings_orientation_auto">Landscape, both sides (follows the sensor)</string>
+    <string name="settings_orientation_game">Game default</string>
+    <string name="settings_orientation_landscape">Landscape (fixed)</string>
+    <string name="settings_orientation_reverse">Landscape upside down (fixed)</string>
 </resources>

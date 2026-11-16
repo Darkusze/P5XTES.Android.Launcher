@@ -680,6 +680,18 @@ public class BootstrapActivity extends AppCompatActivity {
     }
 
     private int resolveTargetOrientation(ComponentName launcher) {
+        switch (FusionSettings.getOrientationMode(this, launcher.getPackageName())) {
+            case FusionSettings.ORIENTATION_AUTO_LANDSCAPE:
+                // Unlike the game's own "userLandscape", this keeps flipping between both landscapes
+                // with the sensor even when the system rotation lock is on.
+                return ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
+            case FusionSettings.ORIENTATION_LANDSCAPE:
+                return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            case FusionSettings.ORIENTATION_REVERSE_LANDSCAPE:
+                return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+            default:
+                break; // FusionSettings.ORIENTATION_GAME_DEFAULT: use what the game declares
+        }
         try {
             ActivityInfo info = getPackageManager().getActivityInfo(launcher, 0);
             if (info.screenOrientation == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {

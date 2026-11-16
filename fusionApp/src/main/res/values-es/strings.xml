@@ -26,4 +26,10 @@
     <string name="translations_error_format">Error: %1$s</string>
     <string name="translations_storage_required">Se necesita el acceso a todos los archivos para instalar las traducciones.</string>
     <string name="translations_section_bundle">Paquete base (plugins de BepInEx + XUnity.AutoTranslator)</string>
+    <string name="settings_orientation_title">Orientación de pantalla</string>
+    <string name="settings_orientation_desc">Cómo gira el juego. Se aplica la próxima vez que inicies el juego.</string>
+    <string name="settings_orientation_auto">Horizontal, ambos lados (sigue al sensor)</string>
+    <string name="settings_orientation_game">Predeterminada del juego</string>
+    <string name="settings_orientation_landscape">Horizontal (fija)</string>
+    <string name="settings_orientation_reverse">Horizontal invertida (fija)</string>
 </resources>
