@@ -38,6 +38,31 @@ public class InstrumentationHooks {
         }
     }
 
+    /**
+     * Restores the target orientation if the game (Unity) changed it after we applied it.
+     * Only calls setRequestedOrientation when the current value differs, so it is cheap to run periodically.
+     */
+    static void enforceTargetOrientation(Activity activity) {
+        try {
+            Intent intent = activity.getIntent();
+            if (intent == null) {
+                return;
+            }
+            int desired = readTargetOrientation(intent);
+            if (desired == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+                return;
+            }
+            int current = activity.getRequestedOrientation();
+            if (current != desired) {
+                activity.setRequestedOrientation(desired);
+                Log.i(TAG, "Orientation was changed to " + current + "; restored " + desired
+                        + " on " + activity.getClass().getName());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to enforce target orientation", e);
+        }
+    }
+
     private static int readTargetOrientation(Intent intent) {
         int orientation = intent.getIntExtra(EXTRA_TARGET_ORIENTATION,
                 ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);

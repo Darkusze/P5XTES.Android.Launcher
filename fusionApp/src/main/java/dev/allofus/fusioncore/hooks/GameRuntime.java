@@ -468,6 +468,8 @@ public final class GameRuntime {
                         .append(" gameResourcePath=").append(gameContext.getPackageResourcePath()).append('\n');
                 sb.append("resources=").append(res).append(" gameResources=").append(gameContext.getResources()).append('\n');
                 sb.append("component=").append(activity.getComponentName()).append('\n');
+                sb.append("requestedOrientation=").append(activity.getRequestedOrientation())
+                        .append(" mode=").append(dev.allofus.fusioncore.FusionSettings.getOrientationMode(activity, gameContext.getPackageName())).append('\n');
                 try {
                     sb.append("getResources declared in: ")
                             .append(activity.getClass().getMethod("getResources").getDeclaringClass().getName()).append('\n');
@@ -571,8 +573,48 @@ public final class GameRuntime {
             original.callActivityOnRestoreInstanceState(activity, state);
         }
         @Override public void callActivityOnResume(Activity activity) {
-            if (gameActivities.contains(activity)) InstrumentationHooks.applyTargetOrientation(activity);
+            boolean game = gameActivities.contains(activity);
+            if (game) InstrumentationHooks.applyTargetOrientation(activity);
             original.callActivityOnResume(activity);
+            if (game) {
+                // The game's own onResume may have changed the orientation: put ours back and keep watching.
+                startOrientationWatch(activity);
+            }
+        }
+        @Override public void callActivityOnPause(Activity activity) {
+            stopOrientationWatch(activity);
+            original.callActivityOnPause(activity);
+        }
+
+        private static final long ORIENTATION_WATCH_INTERVAL_MS = 1000L;
+        private final android.os.Handler orientationHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+        private final java.util.Map<Activity, Runnable> orientationWatchers = new java.util.HashMap<>();
+
+        /**
+         * Unity can ask for its own orientation at any time (e.g. a fixed landscape once the game has loaded),
+         * which silently undid the orientation chosen in the settings. Unless the user picked "Game default",
+         * restore it right away and then re-check every second while the game is in the foreground.
+         */
+        private void startOrientationWatch(Activity activity) {
+            stopOrientationWatch(activity);
+            if (dev.allofus.fusioncore.FusionSettings.getOrientationMode(activity, gameContext.getPackageName())
+                    == dev.allofus.fusioncore.FusionSettings.ORIENTATION_GAME_DEFAULT) {
+                return;
+            }
+            InstrumentationHooks.enforceTargetOrientation(activity);
+            Runnable watcher = new Runnable() {
+                @Override public void run() {
+                    InstrumentationHooks.enforceTargetOrientation(activity);
+                    orientationHandler.postDelayed(this, ORIENTATION_WATCH_INTERVAL_MS);
+                }
+            };
+            orientationWatchers.put(activity, watcher);
+            orientationHandler.postDelayed(watcher, ORIENTATION_WATCH_INTERVAL_MS);
+        }
+
+        private void stopOrientationWatch(Activity activity) {
+            Runnable watcher = orientationWatchers.remove(activity);
+            if (watcher != null) orientationHandler.removeCallbacks(watcher);
         }
         @Override public void callActivityOnNewIntent(Activity activity, Intent intent) {
             Intent target = InstrumentationHooks.resolveOriginalIntent(intent);
@@ -583,6 +625,7 @@ public final class GameRuntime {
             original.callActivityOnNewIntent(activity, delivered);
         }
         @Override public void callActivityOnDestroy(Activity activity) {
+            stopOrientationWatch(activity);
             pendingIntents.remove(activity);
             gameActivities.remove(activity);
             original.callActivityOnDestroy(activity);
