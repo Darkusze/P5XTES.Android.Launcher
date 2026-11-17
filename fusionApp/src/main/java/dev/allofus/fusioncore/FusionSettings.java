@@ -43,12 +43,22 @@ public final class FusionSettings {
         prefs(context).edit().putBoolean(targetPackage + ":" + KEY_DOWNLOAD_UNSTRIPPED_LIBUNITY, enabled).apply();
     }
 
+    /**
+     * "Automatic" used to be stored as the (translated) label, which breaks when the label changes language.
+     * It is now stored as an empty value; a stored "Automatic" (older versions) is still understood.
+     * The caller always receives the label of the current language for the automatic case.
+     */
     public static String getActivityOverrideForGame(Context context, String targetPackage) {
-        return prefs(context).getString(targetPackage + ":" + KEY_ACTIVITY_OVERRIDE, context.getString(R.string.settings_automatic));
+        String automatic = context.getString(R.string.settings_automatic);
+        String stored = prefs(context).getString(targetPackage + ":" + KEY_ACTIVITY_OVERRIDE, "");
+        if (stored.isEmpty() || stored.equals("Automatic") || stored.equals(automatic)) return automatic;
+        return stored;
     }
 
     public static void setActivityOverrideForGame(Context context, String targetPackage, String activityName) {
-        prefs(context).edit().putString(targetPackage + ":" + KEY_ACTIVITY_OVERRIDE, activityName).apply();
+        String value = activityName == null || activityName.equals(context.getString(R.string.settings_automatic))
+                ? "" : activityName;
+        prefs(context).edit().putString(targetPackage + ":" + KEY_ACTIVITY_OVERRIDE, value).apply();
     }
 
     public static int getOrientationMode(Context context, String targetPackage) {

@@ -40,6 +40,13 @@
         android:textSize="14sp"
         android:paddingBottom="14dp" />
 
+    <Button
+        android:id="@+id/selector_update_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/selector_loading"
         android:layout_width="match_parent"
@@ -76,6 +83,15 @@
         android:text="@string/selector_empty_not_installed"
         android:textColor="?android:attr/textColorSecondary"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/selector_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
 
 </LinearLayout>
 

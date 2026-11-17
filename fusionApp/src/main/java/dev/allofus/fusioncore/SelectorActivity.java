@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,6 +41,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipFile;
 
+import dev.allofus.fusioncore.tools.AppUpdater;
 import dev.allofus.fusioncore.tools.CrashDetector;
 import dev.allofus.fusioncore.tools.GlobalMetadata;
 import dev.allofus.fusioncore.tools.P5xGame;
@@ -62,6 +64,8 @@ public class SelectorActivity extends AppCompatActivity {
         View root = findViewById(R.id.selector_root);
         int basePadding = Math.round(getResources().getDisplayMetrics().density * 16f);
         Utilities.applyWindowInsets(root, basePadding);
+
+        setupUpdateEntry();
 
         var handler = new Handler(getMainLooper());
         handler.postDelayed(()->{
@@ -163,9 +167,41 @@ public class SelectorActivity extends AppCompatActivity {
         findViewById(R.id.selector_loading).setVisibility(View.GONE);
     }
 
+    private static final long UPDATE_CHECK_INTERVAL_MS = 6L * 60 * 60 * 1000;
+
+    /** Version footer (opens the updates screen) and the "update available" banner. */
+    private void setupUpdateEntry() {
+        TextView version = findViewById(R.id.selector_version);
+        version.setText(getString(R.string.selector_version_format, AppUpdater.currentVersionName(this)));
+        View.OnClickListener openUpdates = v -> startActivity(new Intent(this, UpdateActivity.class));
+        version.setOnClickListener(openUpdates);
+        findViewById(R.id.selector_update_banner).setOnClickListener(openUpdates);
+
+        refreshUpdateBanner();
+        if (System.currentTimeMillis() - AppUpdater.lastCheckMillis(this) > UPDATE_CHECK_INTERVAL_MS) {
+            new Thread(() -> {
+                try {
+                    AppUpdater.saveResult(this, AppUpdater.fetchLatest());
+                    runOnUiThread(this::refreshUpdateBanner);
+                } catch (Exception e) {
+                    Log.w(TAG, "Automatic update check failed", e);   // not worth bothering the user
+                }
+            }, "p5xtes-update-check").start();
+        }
+    }
+
+    private void refreshUpdateBanner() {
+        Button banner = findViewById(R.id.selector_update_banner);
+        String latest = AppUpdater.cachedLatestTag(this);
+        boolean newer = !latest.isEmpty() && AppUpdater.isNewer(latest, AppUpdater.currentVersionName(this));
+        banner.setVisibility(newer ? View.VISIBLE : View.GONE);
+        if (newer) banner.setText(getString(R.string.selector_update_banner_format, latest));
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        refreshUpdateBanner();
         if (pendingLaunchPackage != null && hasExternalStorageManagerAccess()) {
             String packageName = pendingLaunchPackage;
             pendingLaunchPackage = null;

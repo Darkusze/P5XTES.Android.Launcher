@@ -32,9 +32,9 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 36
-        applicationId = "com.Darkusze.p5xtes"
+        applicationId = "dev.allofus.fusioncore"
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "0.0.1"
         ndk {
             abiFilters.add("arm64-v8a")
             // abiFilters.add("armeabi-v7a")

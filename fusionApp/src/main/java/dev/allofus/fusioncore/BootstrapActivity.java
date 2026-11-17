@@ -135,14 +135,14 @@ public class BootstrapActivity extends AppCompatActivity {
                 if (overrideClass != null) {
                     launcherComponent = new ComponentName(targetPackage, overrideActivity);
                     Log.i(TAG, "Using override activity " + overrideActivity);
-                    runOnUiThread(() -> Toast.makeText(this, "Using override activity " + overrideActivity, Toast.LENGTH_LONG).show());
+                    runOnUiThread(() -> Toast.makeText(this, getString(R.string.bootstrap_toast_override_used, overrideActivity), Toast.LENGTH_LONG).show());
                 } else {
                     Log.i(TAG, "Failed to find override activity " + overrideActivity);
-                    runOnUiThread(()-> Toast.makeText(this, "Failed to find override activity.", Toast.LENGTH_LONG).show());
+                    runOnUiThread(()-> Toast.makeText(this, getString(R.string.bootstrap_toast_override_not_found), Toast.LENGTH_LONG).show());
                 }
             }
         } catch (Exception e) {
-            runOnUiThread(()-> Toast.makeText(this, "Exception when finding override activity.", Toast.LENGTH_LONG).show());
+            runOnUiThread(()-> Toast.makeText(this, getString(R.string.bootstrap_toast_override_exception), Toast.LENGTH_LONG).show());
             Log.e(TAG, "Failed to get override activity "+ overrideActivity, e);
         }
 
@@ -359,7 +359,7 @@ public class BootstrapActivity extends AppCompatActivity {
         if (!mapFile.isFile()) {
             Uri selected = promptForFile(R.string.boostrap_file_request_il2cpp_map, "map");
             if (selected == null) {
-                runOnMainThread(() -> Toast.makeText(this, "WARNING: no il2cpp api deobfuscation map selected. are you sure you know what you are doing?", Toast.LENGTH_LONG).show());
+                runOnMainThread(() -> Toast.makeText(this, getString(R.string.bootstrap_toast_no_il2cpp_map), Toast.LENGTH_LONG).show());
                 return new HashMap<>();
             }
             try {
@@ -629,7 +629,7 @@ public class BootstrapActivity extends AppCompatActivity {
             String fileName = getFileNameFromUri(resultUri);
             if (fileName != null && !fileName.toLowerCase(Locale.ROOT).endsWith("." + cleanExt)) {
                 Log.w(TAG, "Selected file '" + fileName + "' does not match required extension: ." + cleanExt);
-                runOnMainThread(() -> Toast.makeText(this, "Selected file must be a ." + cleanExt + " file", Toast.LENGTH_LONG).show());
+                runOnMainThread(() -> Toast.makeText(this, getString(R.string.bootstrap_toast_wrong_extension, cleanExt), Toast.LENGTH_LONG).show());
                 return null;
             }
         }

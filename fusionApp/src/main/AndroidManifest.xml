@@ -16,6 +16,7 @@
   <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
       tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -61,6 +62,13 @@
         android:theme="@style/Theme.Material3.Dark.NoActionBar"
         android:windowSoftInputMode="adjustResize"
         android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+        android:exported="false" />
+    <activity
+        android:name="dev.allofus.fusioncore.UpdateActivity"
+        android:theme="@style/Theme.Material3.Dark.NoActionBar"
+        android:exported="false" />
+    <receiver
+        android:name="dev.allofus.fusioncore.UpdateInstallReceiver"
         android:exported="false" />
     <!-- StubActivity for dynamic loading of unregistered activities -->
     <activity
