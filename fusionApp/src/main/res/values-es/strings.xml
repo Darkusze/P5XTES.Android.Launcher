@@ -32,4 +32,19 @@
     <string name="settings_orientation_game">Predeterminada del juego</string>
     <string name="settings_orientation_landscape">Horizontal (fija)</string>
     <string name="settings_orientation_reverse">Horizontal invertida (fija)</string>
+    <string name="translations_section_name">Nombre del protagonista</string>
+    <string name="translations_name_desc">Escribe el nombre que elegiste en el juego. Se escribe en la traducción para que el traductor automático no lo modifique. Por defecto es %1$s %2$s.</string>
+    <string name="translations_name_first_hint">Nombre</string>
+    <string name="translations_name_last_hint">Apellido</string>
+    <string name="translations_name_current_format">Nombre actual: %1$s %2$s</string>
+    <string name="translations_name_apply">Aplicar nombre</string>
+    <string name="translations_name_empty">Escribe un nombre y un apellido (sin espacios).</string>
+    <string name="translations_name_same">Ese ya es el nombre actual.</string>
+    <string name="translations_name_applied_format">Nombre aplicado: %1$s %2$s. Reinicia el juego para verlo.</string>
+    <string name="translations_section_hide_id">Ocultar ID</string>
+    <string name="translations_hide_id_desc">Oculta tu ID de jugador en el HUD.</string>
+    <string name="translations_hide_id_hidden">ID oculto. Reinicia el juego para aplicarlo.</string>
+    <string name="translations_hide_id_shown">ID visible de nuevo. Reinicia el juego para aplicarlo.</string>
+    <string name="translations_custom_need_text_pack">Instala primero la traducción de texto para usar estas opciones.</string>
+    <string name="translations_custom_reapplied">Se volvieron a aplicar tu nombre de protagonista y el ajuste del ID.</string>
 </resources>

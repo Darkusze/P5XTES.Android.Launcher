@@ -1,5 +1,7 @@
 package dev.allofus.fusioncore;
 
+import dev.allofus.fusioncore.tools.TextCustomizer;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -9,6 +11,9 @@ public final class FusionSettings {
     private static final String KEY_USE_IL2CPP2MONO = "use_il2cpp2mono";
     private static final String KEY_ACTIVITY_OVERRIDE = "activity_override";
     private static final String KEY_ORIENTATION_MODE = "orientation_mode";
+    private static final String KEY_PROTAGONIST_FIRST = "protagonist_first";
+    private static final String KEY_PROTAGONIST_LAST = "protagonist_last";
+    private static final String KEY_HIDE_ID = "hide_id";
 
     /** Landscape that follows the sensor, so it flips between both landscapes even with rotation lock on. */
     public static final int ORIENTATION_AUTO_LANDSCAPE = 0;
@@ -52,5 +57,28 @@ public final class FusionSettings {
 
     public static void setOrientationMode(Context context, String targetPackage, int mode) {
         prefs(context).edit().putInt(targetPackage + ":" + KEY_ORIENTATION_MODE, mode).apply();
+    }
+
+    public static String getProtagonistFirst(Context context, String targetPackage) {
+        return prefs(context).getString(targetPackage + ":" + KEY_PROTAGONIST_FIRST, TextCustomizer.BASE_FIRST_NAME);
+    }
+
+    public static String getProtagonistLast(Context context, String targetPackage) {
+        return prefs(context).getString(targetPackage + ":" + KEY_PROTAGONIST_LAST, TextCustomizer.BASE_LAST_NAME);
+    }
+
+    public static void setProtagonistName(Context context, String targetPackage, String first, String last) {
+        prefs(context).edit()
+                .putString(targetPackage + ":" + KEY_PROTAGONIST_FIRST, first)
+                .putString(targetPackage + ":" + KEY_PROTAGONIST_LAST, last)
+                .apply();
+    }
+
+    public static boolean isHideIdEnabled(Context context, String targetPackage) {
+        return prefs(context).getBoolean(targetPackage + ":" + KEY_HIDE_ID, false);
+    }
+
+    public static void setHideIdEnabled(Context context, String targetPackage, boolean hidden) {
+        prefs(context).edit().putBoolean(targetPackage + ":" + KEY_HIDE_ID, hidden).apply();
     }
 }

@@ -75,4 +75,19 @@
     <string name="settings_orientation_game">Game default</string>
     <string name="settings_orientation_landscape">Landscape (fixed)</string>
     <string name="settings_orientation_reverse">Landscape upside down (fixed)</string>
+    <string name="translations_section_name">Protagonist name</string>
+    <string name="translations_name_desc">Type the name you chose in the game. It is written into the translation so the auto-translator does not change it. The default is %1$s %2$s.</string>
+    <string name="translations_name_first_hint">First name</string>
+    <string name="translations_name_last_hint">Last name</string>
+    <string name="translations_name_current_format">Current name: %1$s %2$s</string>
+    <string name="translations_name_apply">Apply name</string>
+    <string name="translations_name_empty">Enter both a first name and a last name (without spaces).</string>
+    <string name="translations_name_same">That is already the current name.</string>
+    <string name="translations_name_applied_format">Name applied: %1$s %2$s. Restart the game to see it.</string>
+    <string name="translations_section_hide_id">Hide player ID</string>
+    <string name="translations_hide_id_desc">Hides your player ID on the HUD and on the profile screen.</string>
+    <string name="translations_hide_id_hidden">ID hidden. Restart the game to apply it.</string>
+    <string name="translations_hide_id_shown">ID visible again. Restart the game to apply it.</string>
+    <string name="translations_custom_need_text_pack">Install the text translation first to use these options.</string>
+    <string name="translations_custom_reapplied">Your protagonist name and ID setting were applied again.</string>
 </resources>

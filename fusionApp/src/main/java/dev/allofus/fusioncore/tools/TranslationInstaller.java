@@ -28,7 +28,7 @@ import java.util.Set;
  * <p>
  * Packs are looked up by file name (so new versions are found without changing the app):
  * "Only.text.translation.x.y.z.zip", "Only.texture.translation.x.y.z.zip" and, if published,
- * "x.y.z.P5XTES.Android.zip".
+ * "P5XTESAL.Android.x.y.z.zip" (the "AL" keeps it apart from the desktop P5XTES packages).
  */
 public final class TranslationInstaller {
     private static final String TAG = "P5XTES";
@@ -36,8 +36,8 @@ public final class TranslationInstaller {
     private static final int MAX_REDIRECTS = 5;
 
     public enum Kind {
-        /** Optional base package ("1.0.0.P5XTES.Android.zip"): plugins and config for the BepInEx that FusionCore ships. */
-        BUNDLE("p5xtes.android"),
+        /** Optional base package ("P5XTESAL.Android.1.0.0.zip"): plugins and config for the BepInEx that FusionCore ships. */
+        BUNDLE("p5xtesal.android"),
         TEXT("text.translation"),
         TEXTURE("texture.translation");
 
